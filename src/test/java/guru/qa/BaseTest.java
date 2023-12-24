@@ -7,9 +7,11 @@ public class BaseTest {
 
     @BeforeEach
     void browserSettings() {
-        Configuration.browser = "chrome";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-//        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe"); // раскомментировать для локального запуска
+        //todo исправить после помощи
+//      раскомментировать для локального запуска
+//        Configuration.browser = "chrome";
+//        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
     }
 }
