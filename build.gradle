@@ -2,17 +2,23 @@ plugins {
     id 'java'
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17) // Укажите нужную версию Java
+    }
+}
+
 group = 'guru.qa'
-version = '1.0-SNAPSHOT'
+version = '1.0'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(
-            'org.junit.jupiter:junit-jupiter:5.10.1',
-            'com.codeborne:selenide:7.0.4'
+    testImplementation (
+            'com.codeborne:selenide:6.12.3',
+            'org.junit.jupiter:junit-jupiter:5.10.1'
     )
 }
 
