@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class BaseTest {
 
-    @BeforeEach
+    @BeforeAll
     void browserSettings() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
