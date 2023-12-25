@@ -49,10 +49,10 @@ public class StudentRegistrationFormTests extends BaseTest {
         $("#uploadPicture").uploadFromClasspath(imgName);
         $("#currentAddress").setValue(ADDRESS);
         String state = "NCR";
-        $("#state input").setValue(state).sendKeys(Keys.ENTER);
+        $("#state input").setValue(state).pressEnter();
         $("#city").click();
         String city = "Noida";
-        $("#city input").setValue(city).sendKeys(Keys.ENTER);
+        $("#city input").setValue(city).pressEnter();
         $("#submit").click();
 
         $(".modal-content").shouldBe(Condition.visible);
