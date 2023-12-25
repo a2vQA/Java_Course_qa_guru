@@ -9,9 +9,5 @@ public class BaseTest {
     static void browserSettings() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        //todo исправить после помощи
-//      раскомментировать для локального запуска
-        Configuration.browser = "chrome";
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
     }
 }

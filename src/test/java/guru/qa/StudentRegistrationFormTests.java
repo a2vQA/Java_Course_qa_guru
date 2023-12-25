@@ -2,44 +2,64 @@ package guru.qa;
 
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class StudentRegistrationFormTests extends BaseTest {
 
+    private final String NAME = RandomStringUtils.randomAlphabetic(9);
+    private final String EMAIL = RandomStringUtils.randomAlphabetic(10) + "@gmail.com";
+    private final String PHONE_NUMBER = "9" + RandomStringUtils.randomNumeric(9);
+    private final String ADDRESS = RandomStringUtils.randomAlphabetic(10) + " , " + RandomStringUtils.randomAlphabetic(10);
+    private final int HOBBIES_AND_GENDER_RANDOM = ThreadLocalRandom.current().nextInt(0, 3);
+    private String hobbiesPick;
+    private String gendersPick;
+    private String subjectPick;
+
     @Test
-    public void StudentRegistrationFormTest() {
+    public void studentRegistrationFormTest() {
         open("/automation-practice-form");
-        $("#firstName").setValue(RandomStringUtils.randomAlphabetic(9));
-        $("#lastName").setValue(RandomStringUtils.randomAlphabetic(9));
-        $("#userEmail").setValue(RandomStringUtils.randomAlphabetic(10) + "@gmail.com");
-        $("[for=gender-radio-" + ThreadLocalRandom.current().nextInt(1, 4) + "]").click();
-        $("#userNumber").setValue("9" + RandomStringUtils.randomNumeric(9));
-        $("#dateOfBirthInput").setValue(" " + LocalDate.now().minusYears(18).format(DateTimeFormatter.ofPattern("d MMM uuuu", Locale.ENGLISH)));
-        $("#dateOfBirthInput").sendKeys(Keys.CONTROL, Keys.ARROW_LEFT, Keys.ARROW_LEFT, Keys.ARROW_LEFT, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE);
-        $("#subjectsInput").scrollIntoView(true).setValue("i");
-        $("#react-select-2-option-" + ThreadLocalRandom.current().nextInt(0, 11)).scrollIntoView(true).click();
-        $("[for=hobbies-checkbox-" + ThreadLocalRandom.current().nextInt(1, 4) + "]").click();
-        $("#uploadPicture").uploadFile(new File("src\\test\\resources\\testImg.jpg"));
-        $("#currentAddress").setValue(RandomStringUtils.randomAlphabetic(10) + " , " + RandomStringUtils.randomAlphabetic(10));
-        $(".element-group:last-child").scrollIntoView(true).click();
-        $("#state").scrollIntoView(true).click();
-        $("#react-select-3-option-" + ThreadLocalRandom.current().nextInt(0, 4)).click();
+        Selenide.executeJavaScript("$('#fixedban').remove()");
+        Selenide.executeJavaScript("$('footer').remove()");
+        $("#firstName").setValue(NAME);
+        $("#lastName").setValue(NAME);
+        $("#userEmail").setValue(EMAIL);
+        hobbiesPick = $$("#genterWrapper .col-md-9 > div > label").get(HOBBIES_AND_GENDER_RANDOM).getText();
+        $$("#genterWrapper .col-md-9 > div > label").get(HOBBIES_AND_GENDER_RANDOM).click();
+        $("#userNumber").setValue(PHONE_NUMBER);
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOption("September");
+        $(".react-datepicker__year-select").selectOption("1997");
+        $(".react-datepicker__day--015").click();
+
+        $("#subjectsInput").setValue("i");
+        ElementsCollection subjectList = $$(".subjects-auto-complete__option");
+        int subjectRandom = ThreadLocalRandom.current().nextInt(0, subjectList.size() - 1);
+        subjectPick = subjectList.get(subjectRandom).getText();
+        subjectList.get(subjectRandom).click();
+
+        gendersPick = $$("#hobbiesWrapper .col-md-9 > div > label").get(HOBBIES_AND_GENDER_RANDOM).getText();
+        $$("#hobbiesWrapper .col-md-9 > div > label").get(HOBBIES_AND_GENDER_RANDOM).click();
+        $("#uploadPicture").uploadFromClasspath("testImg.jpg");
+        $("#currentAddress").setValue(ADDRESS);
+        $("#state").click();
+        ElementsCollection stateList = $$(".css-2b097c-container#state");
+        String statePick = stateList.get(0).getText();
+        stateList.get(0).click();
+        $(".state-auto-complete__option" + ThreadLocalRandom.current().nextInt(0, 4)).click();
+        $(".css-26l3qy-menu" + ThreadLocalRandom.current().nextInt(0, 4)).click();
         $("#city").click();
         $("#react-select-4-option-" + ThreadLocalRandom.current().nextInt(0, 2)).click();
         $("#submit").click();
-        $("#closeLargeModal").shouldBe(Condition.visible).scrollIntoView(true).click();
 
-        $("#closeLargeModal").shouldNotBe(Condition.visible);
+        $("#closeLargeModal").shouldBe(Condition.visible);
     }
 }
