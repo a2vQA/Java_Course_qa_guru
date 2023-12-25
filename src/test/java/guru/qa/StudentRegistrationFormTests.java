@@ -6,60 +6,88 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class StudentRegistrationFormTests extends BaseTest {
 
-    private final String NAME = RandomStringUtils.randomAlphabetic(9);
+    private final String FIRST_NAME = RandomStringUtils.randomAlphabetic(9);
+    private final String LAST_NAME = RandomStringUtils.randomAlphabetic(9);
     private final String EMAIL = RandomStringUtils.randomAlphabetic(10) + "@gmail.com";
     private final String PHONE_NUMBER = "9" + RandomStringUtils.randomNumeric(9);
     private final String ADDRESS = RandomStringUtils.randomAlphabetic(10) + " , " + RandomStringUtils.randomAlphabetic(10);
-    private final int HOBBIES_AND_GENDER_RANDOM = ThreadLocalRandom.current().nextInt(0, 3);
-    private String hobbiesPick;
-    private String gendersPick;
-    private String subjectPick;
 
     @Test
     public void studentRegistrationFormTest() {
         open("/automation-practice-form");
         Selenide.executeJavaScript("$('#fixedban').remove()");
         Selenide.executeJavaScript("$('footer').remove()");
-        $("#firstName").setValue(NAME);
-        $("#lastName").setValue(NAME);
+        $("#firstName").setValue(FIRST_NAME);
+        $("#lastName").setValue(LAST_NAME);
         $("#userEmail").setValue(EMAIL);
-        hobbiesPick = $$("#genterWrapper .col-md-9 > div > label").get(HOBBIES_AND_GENDER_RANDOM).getText();
-        $$("#genterWrapper .col-md-9 > div > label").get(HOBBIES_AND_GENDER_RANDOM).click();
         $("#userNumber").setValue(PHONE_NUMBER);
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("September");
         $(".react-datepicker__year-select").selectOption("1997");
         $(".react-datepicker__day--015").click();
+        $("#subjectsInput").sendKeys("i");
 
-        $("#subjectsInput").setValue("i");
-        ElementsCollection subjectList = $$(".subjects-auto-complete__option");
-        int subjectRandom = ThreadLocalRandom.current().nextInt(0, subjectList.size() - 1);
-        subjectPick = subjectList.get(subjectRandom).getText();
-        subjectList.get(subjectRandom).click();
+        String subjectPick = randomSubjectPicker();
+        String gendersPick = randomGenderPicker();
+        String hobbiesPick = randomHobbiesPicker();
 
-        gendersPick = $$("#hobbiesWrapper .col-md-9 > div > label").get(HOBBIES_AND_GENDER_RANDOM).getText();
-        $$("#hobbiesWrapper .col-md-9 > div > label").get(HOBBIES_AND_GENDER_RANDOM).click();
-        $("#uploadPicture").uploadFromClasspath("testImg.jpg");
+        String imgName = "testImg.jpg";
+        $("#uploadPicture").uploadFromClasspath(imgName);
         $("#currentAddress").setValue(ADDRESS);
-        $("#state").click();
-        ElementsCollection stateList = $$(".css-2b097c-container#state");
-        String statePick = stateList.get(0).getText();
-        stateList.get(0).click();
-        $(".state-auto-complete__option" + ThreadLocalRandom.current().nextInt(0, 4)).click();
-        $(".css-26l3qy-menu" + ThreadLocalRandom.current().nextInt(0, 4)).click();
+        String state = "NCR";
+        $("#state input").setValue(state).sendKeys(Keys.ENTER);
         $("#city").click();
-        $("#react-select-4-option-" + ThreadLocalRandom.current().nextInt(0, 2)).click();
+        String city = "Noida";
+        $("#city input").setValue(city).sendKeys(Keys.ENTER);
         $("#submit").click();
 
-        $("#closeLargeModal").shouldBe(Condition.visible);
+        $(".modal-content").shouldBe(Condition.visible);
+        $(".table").shouldHave(text(FIRST_NAME + " " +LAST_NAME));
+        $(".table").shouldHave(text(EMAIL));
+        $(".table").shouldHave(text(gendersPick));
+        $(".table").shouldHave(text(PHONE_NUMBER));
+        $(".table").shouldHave(text("15 September,1997"));
+        $(".table").shouldHave(text(subjectPick));
+        $(".table").shouldHave(text(hobbiesPick));
+        $(".table").shouldHave(text(imgName));
+        $(".table").shouldHave(text(ADDRESS));
+        $(".table").shouldHave(text(state + " " + city));
+    }
+
+    public String randomGenderPicker() {
+        int countOfGenders = $$("#genterWrapper .col-md-9 > div > label").size();
+        int gendersRandomNumber = ThreadLocalRandom.current().nextInt(countOfGenders);
+        String gendersPick = $$("#genterWrapper .col-md-9 > div > label").get(gendersRandomNumber).getText();
+        $$("#genterWrapper .col-md-9 > div > label").get(gendersRandomNumber).click();
+        return gendersPick;
+    }
+
+    public String randomSubjectPicker() {
+        $$(".subjects-auto-complete__option").shouldHave(sizeGreaterThan(0)).first();
+        ElementsCollection subjectList = $$(".subjects-auto-complete__option");
+        int subjectRandom = ThreadLocalRandom.current().nextInt(0, subjectList.size());
+        String subjectPick = subjectList.get(subjectRandom).getText();
+        subjectList.get(subjectRandom).click();
+        return subjectPick;
+    }
+
+    public String randomHobbiesPicker() {
+        int countOfGenders = $$("#hobbiesWrapper .col-md-9 > div > label").size();
+        int gendersRandomNumber = ThreadLocalRandom.current().nextInt(countOfGenders);
+        String gendersPick = $$("#hobbiesWrapper .col-md-9 > div > label").get(gendersRandomNumber).getText();
+        $$("#hobbiesWrapper .col-md-9 > div > label").get(gendersRandomNumber).click();
+        return gendersPick;
     }
 }
