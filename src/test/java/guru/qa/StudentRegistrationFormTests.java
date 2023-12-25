@@ -8,6 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
@@ -37,9 +38,10 @@ public class StudentRegistrationFormTests extends BaseTest {
         $(".react-datepicker__month-select").selectOption("September");
         $(".react-datepicker__year-select").selectOption("1997");
         $(".react-datepicker__day--015").click();
-        $("#subjectsInput").sendKeys("i");
 
-        String subjectPick = randomSubjectPicker();
+        randomSubjectPicker("i");
+        randomSubjectPicker("h");
+        List<String> subjectPick = randomSubjectPicker("e");
         String gendersPick = randomGenderPicker();
         String hobbiesPick = randomHobbiesPicker();
 
@@ -59,7 +61,7 @@ public class StudentRegistrationFormTests extends BaseTest {
         $(".table").shouldHave(text(gendersPick));
         $(".table").shouldHave(text(PHONE_NUMBER));
         $(".table").shouldHave(text("15 September,1997"));
-        $(".table").shouldHave(text(subjectPick));
+        $(".table").shouldHave(text(subjectPick.toString().replace("\n", ", ").replaceAll("[\\[\\]]", "")));
         $(".table").shouldHave(text(hobbiesPick));
         $(".table").shouldHave(text(imgName));
         $(".table").shouldHave(text(ADDRESS));
@@ -74,13 +76,13 @@ public class StudentRegistrationFormTests extends BaseTest {
         return gendersPick;
     }
 
-    public String randomSubjectPicker() {
+    public List<String> randomSubjectPicker(String searchQuery) {
+        $("#subjectsInput").sendKeys(searchQuery);
         $$(".subjects-auto-complete__option").shouldHave(sizeGreaterThan(0)).first();
         ElementsCollection subjectList = $$(".subjects-auto-complete__option");
         int subjectRandom = ThreadLocalRandom.current().nextInt(0, subjectList.size());
-        String subjectPick = subjectList.get(subjectRandom).getText();
         subjectList.get(subjectRandom).click();
-        return subjectPick;
+        return $$(".subjects-auto-complete__value-container").texts();
     }
 
     public String randomHobbiesPicker() {
