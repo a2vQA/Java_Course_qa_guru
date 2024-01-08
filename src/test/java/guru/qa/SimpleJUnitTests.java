@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SimpleJUnitTest extends BaseTest {
+public class SimpleJUnitTests extends BaseTest {
 
     @BeforeAll
     static void beforeAll() {
