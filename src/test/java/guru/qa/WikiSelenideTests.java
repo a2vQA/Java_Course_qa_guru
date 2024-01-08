@@ -41,9 +41,14 @@ public class WikiSelenideTests {
         open("https://github.com/selenide/selenide");
         $("#wiki-tab")
                 .click();
-        $("#wiki-body .markdown-body ul")
-                .shouldHave(text("Soft assertions"))
-                .$(byText("Soft assertions"))
+        $("#wiki-pages-box [type='button']")
+                .click();
+
+        $("#wiki-pages-box")
+                .shouldHave(text("SoftAssertions"));
+        
+        $("#wiki-pages-box")
+                .$(byText("SoftAssertions"))
                 .click();
 
         $("#user-content-3-using-junit5-extend-test-class")
