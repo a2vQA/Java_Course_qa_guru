@@ -17,6 +17,7 @@ public class GithubEnterprisePageTests {
                 .hover();
         $("a[href='/enterprise']")
                 .click();
+
         $("#hero-section-brand-heading")
                 .shouldHave(text("The AI-powered developer platform."))
                 .shouldBe(visible);
