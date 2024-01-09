@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class WikiSelenideTests {
 
-    private final String JUNIT_FIRST_CODE = """
+    private String junitFirstCode = """
         @ExtendWith({SoftAssertsExtension.class})
         class Tests {
           @Test
@@ -23,7 +23,7 @@ public class WikiSelenideTests {
             $("#second").should(visible).click();
           }
         }""";
-    private final String JUNIT_SECOND_CODE = """
+    private String junitSecondCode = """
         class Tests {
           @RegisterExtension
           static SoftAssertsExtension softAsserts = new SoftAssertsExtension();
@@ -61,10 +61,10 @@ public class WikiSelenideTests {
         $("#user-content-3-using-junit5-extend-test-class")
                 .ancestor("h4")
                 .sibling(0)
-                .shouldHave(text(JUNIT_FIRST_CODE));
+                .shouldHave(text(junitFirstCode));
         $("#user-content-3-using-junit5-extend-test-class")
                 .ancestor("h4")
                 .sibling(2)
-                .shouldHave(text(JUNIT_SECOND_CODE));
+                .shouldHave(text(junitSecondCode));
     }
 }
