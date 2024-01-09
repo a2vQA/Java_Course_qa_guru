@@ -9,5 +9,6 @@ public class BaseTest {
     static void browserSettings() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
+        Configuration.browserVersion = "117";
     }
 }

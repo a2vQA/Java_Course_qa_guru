@@ -1,5 +1,7 @@
 package guru.qa;
 
+import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -35,6 +37,11 @@ public class WikiSelenideTests {
             $("#second").should(visible).click();
           }
         }""";
+
+    @BeforeEach
+    void browserSettings() {
+        Configuration.browserVersion = "117";
+    }
 
     @Test
     public void wikiSelenideTest() {
