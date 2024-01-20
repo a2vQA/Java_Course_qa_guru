@@ -4,9 +4,13 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class CalendarComponent {
 
-    public void setDate(String yyyy, String month, String dd){
+    public void setDate(String year, String month, String day) {
         $(".react-datepicker__month-select").selectOption(month);
-        $(".react-datepicker__year-select").selectOption(yyyy);
-        $(".react-datepicker__day--0" + dd).click();
+        $(".react-datepicker__year-select").selectOption(year);
+        if (Integer.parseInt(day) < 10) {
+            $(".react-datepicker__day--00" + day).click();
+        } else {
+            $(".react-datepicker__day--0" + day).click();
+        }
     }
 }

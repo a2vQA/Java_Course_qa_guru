@@ -1,4 +1,4 @@
-package guru.qa;
+package guru.qa.tests;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

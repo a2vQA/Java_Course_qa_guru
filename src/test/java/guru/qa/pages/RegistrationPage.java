@@ -12,6 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byTagAndText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -30,6 +31,7 @@ public class RegistrationPage {
         userAddressInput = $("#currentAddress"),
         dateOfBirthCalendar = $("#dateOfBirthInput"),
         subjectInput = $("#subjectsInput"),
+        hobbyCheckboxes = $("#hobbiesWrapper"),
         stateInput = $("#state input"),
         cityInput = $("#city input"),
         submitBtn = $("#submit"),
@@ -79,6 +81,29 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage setBirthDate(String year, String month, String day){
+        dateOfBirthCalendar.click();
+        calendarComponent.setDate(year, month, day);
+
+        return this;
+    }
+
+    public RegistrationPage setSubject(String subject) {
+        subjectInput
+                .setValue(subject)
+                .pressEnter();
+
+        return this;
+    }
+
+    public RegistrationPage setHobby(String hobby) {
+        hobbyCheckboxes
+                .$(byText(hobby))
+                .click();
+
+        return this;
+    }
+
     public RegistrationPage uploadImage(String imgName){
         uploadPictureBtn.uploadFromClasspath(imgName);
 
@@ -87,13 +112,6 @@ public class RegistrationPage {
 
     public RegistrationPage setUserAddress(String userAddress){
         userAddressInput.setValue(userAddress);
-
-        return this;
-    }
-
-    public RegistrationPage setBirthDate(String yyyy, String month, String dd){
-        dateOfBirthCalendar.click();
-        calendarComponent.setDate(yyyy, month, dd);
 
         return this;
     }
@@ -132,6 +150,7 @@ public class RegistrationPage {
         userForm.shouldHave(cssClass("was-validated"));
     }
 
+    @Deprecated
     public String randomGenderPicker() {
         int countOfGenders = genderList.size();
         int gendersRandomNumber = ThreadLocalRandom.current().nextInt(countOfGenders);
@@ -141,6 +160,7 @@ public class RegistrationPage {
         return gendersPick;
     }
 
+    @Deprecated
     public List<String> randomSubjectPicker(String searchQuery) {
         subjectInput.sendKeys(searchQuery);
         dropDownSubjectList.shouldHave(sizeGreaterThan(0)).first();
@@ -150,12 +170,13 @@ public class RegistrationPage {
         return subjectResultList.texts();
     }
 
+    @Deprecated
     public String randomHobbiesPicker() {
-        int countOfGenders = hobbiesList.size();
-        int gendersRandomNumber = ThreadLocalRandom.current().nextInt(countOfGenders);
-        String gendersPick = hobbiesList.get(gendersRandomNumber).getText();
-        hobbiesList.get(gendersRandomNumber).click();
+        int countOfHobbies = hobbiesList.size();
+        int hobbiesRandomNumber = ThreadLocalRandom.current().nextInt(countOfHobbies);
+        String hobbyPick = hobbiesList.get(hobbiesRandomNumber).getText();
+        hobbiesList.get(hobbiesRandomNumber).click();
 
-        return gendersPick;
+        return hobbyPick;
     }
 }
