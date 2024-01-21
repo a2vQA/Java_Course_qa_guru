@@ -4,65 +4,51 @@ package guru.qa.tests;
 import guru.qa.pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
 
-import static guru.qa.tests.TestData.ADDRESS;
-import static guru.qa.tests.TestData.BIRTH_DAY;
-import static guru.qa.tests.TestData.BIRTH_MONTH;
-import static guru.qa.tests.TestData.BIRTH_YEAR;
-import static guru.qa.tests.TestData.CITY;
-import static guru.qa.tests.TestData.EMAIL;
-import static guru.qa.tests.TestData.FIRST_NAME;
-import static guru.qa.tests.TestData.GENDER;
-import static guru.qa.tests.TestData.HOBBY;
-import static guru.qa.tests.TestData.IMG_NAME;
-import static guru.qa.tests.TestData.LAST_NAME;
-import static guru.qa.tests.TestData.PHONE_NUMBER;
-import static guru.qa.tests.TestData.STATE;
-import static guru.qa.tests.TestData.SUBJECT;
-
 public class StudentRegistrationFormTests extends BaseTest {
 
     private final RegistrationPage registrationPage = new RegistrationPage();
+    TestData testData = new TestData();
 
     @Test
     public void studentRegistrationFormTest() {
         registrationPage
                 .openPageAndDeleteFooter()
-                .setFirstName(FIRST_NAME)
-                .setLastName(LAST_NAME)
-                .setUserEmail(EMAIL)
-                .setGender(GENDER)
-                .setUserPhoneNumber(PHONE_NUMBER)
-                .setBirthDate(BIRTH_YEAR, BIRTH_MONTH, BIRTH_DAY)
-                .setSubject(SUBJECT)
-                .setHobby(HOBBY)
-                .uploadImage(IMG_NAME)
-                .setUserAddress(ADDRESS)
-                .setState(STATE)
-                .setCity(CITY)
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setUserEmail(testData.email)
+                .setGender(testData.gender)
+                .setUserPhoneNumber(testData.phoneNumber)
+                .setBirthDate(testData.birthYear, testData.birthMonth, testData.birthDay)
+                .setSubject(testData.subject)
+                .setHobby(testData.hobby)
+                .uploadImage(testData.imgName)
+                .setUserAddress(testData.address)
+                .setState(testData.state)
+                .setCity(testData.city)
                 .submitForm()
-                .checkResultInTable("Student Name", FIRST_NAME + " " + LAST_NAME)
-                .checkResultInTable("Student Email", EMAIL)
-                .checkResultInTable("Gender", GENDER)
-                .checkResultInTable("Mobile", PHONE_NUMBER)
-                .checkResultInTable("Date of Birth", BIRTH_DAY + " " + BIRTH_MONTH + "," + BIRTH_YEAR)
-                .checkResultInTable("Subjects", SUBJECT)
-                .checkResultInTable("Hobbies", HOBBY)
-                .checkResultInTable("Picture", IMG_NAME)
-                .checkResultInTable("Address", ADDRESS)
-                .checkResultInTable("State and City", STATE + " " + CITY);
+                .checkResultInTable("Student Name", testData.firstName + " " + testData.lastName)
+                .checkResultInTable("Student Email", testData.email)
+                .checkResultInTable("Gender", testData.gender)
+                .checkResultInTable("Mobile", testData.phoneNumber)
+                .checkResultInTable("Date of Birth", testData.birthDay + " " + testData.birthMonth + "," + testData.birthYear)
+                .checkResultInTable("Subjects", testData.subject)
+                .checkResultInTable("Hobbies", testData.hobby)
+                .checkResultInTable("Picture", testData.imgName)
+                .checkResultInTable("Address", testData.address)
+                .checkResultInTable("State and City", testData.state + " " + testData.city);
     }
 
     @Test
     void minimumFieldsStudentRegistrationFormTest() {
         registrationPage.openPageAndDeleteFooter()
-                .setFirstName(FIRST_NAME)
-                .setLastName(LAST_NAME)
-                .setGender(GENDER)
-                .setUserPhoneNumber(PHONE_NUMBER)
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setGender(testData.gender)
+                .setUserPhoneNumber(testData.phoneNumber)
                 .submitForm()
-                .checkResultInTable("Student Name", FIRST_NAME + " " + LAST_NAME)
-                .checkResultInTable("Gender", GENDER)
-                .checkResultInTable("Mobile", PHONE_NUMBER);
+                .checkResultInTable("Student Name", testData.firstName + " " + testData.lastName)
+                .checkResultInTable("Gender", testData.gender)
+                .checkResultInTable("Mobile", testData.phoneNumber);
     }
 
     @Test

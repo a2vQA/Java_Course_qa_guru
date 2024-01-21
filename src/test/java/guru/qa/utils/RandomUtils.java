@@ -1,51 +1,47 @@
 package guru.qa.utils;
 
 import com.github.javafaker.Faker;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Locale;
 
 public class RandomUtils {
 
-    public static void main(String[] args){
-        System.out.println(getRandomGender());
-        System.out.println(getStateByCity(getCity()));
-    }
-
     public static int getRandomInt(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
+        Faker faker = new Faker();
+        return faker.number().numberBetween(min, max + 1);
     }
 
     public static String getRandomAddress() {
-        return RandomStringUtils.randomAlphabetic(10) + ", " + RandomStringUtils.randomAlphabetic(10);
+        Faker faker = new Faker();
+        return faker.address().fullAddress();
     }
 
     public static String getPlainOrSeparateRandomPhoneWOCode(boolean plain) {
+        Faker faker = new Faker(new Locale("ru"));
         if (plain) {
-            return getRandomInt(10000, 99999) + "" + getRandomInt(10000, 99999);
+            return "9" + faker.phoneNumber().subscriberNumber(9);
         }
-        return String.format("(%d)%d-%d-%d", getRandomInt(100, 999), getRandomInt(100, 999),
-                getRandomInt(10, 99), getRandomInt(10, 99));
+        return faker.phoneNumber().phoneNumber();
     }
 
     public static String getRandomGender() {
+        Faker faker = new Faker();
         String[] genders = {"Male", "Female", "Other"};
-        int index = getRandomInt(0, genders.length - 1);
-        return genders[index];
+        return faker.options().option(genders);
     }
 
     public static String getRandomSubject() {
+        Faker faker = new Faker();
         String[] subjects = {"Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science",
                 "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"};
-        int index = getRandomInt(0, subjects.length - 1);
-        return subjects[index];
+        return faker.options().option(subjects);
     }
 
     public static String getRandomHobby() {
+        Faker faker = new Faker();
         String[] hobbies = {"Sports", "Reading", "Music"};
-        int index = getRandomInt(0, hobbies.length - 1);
-        return hobbies[index];
+        return faker.options().option(hobbies);
     }
 
     public static String getCity() {
