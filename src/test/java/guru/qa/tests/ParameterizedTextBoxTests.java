@@ -34,7 +34,7 @@ public class ParameterizedTextBoxTests {
         $("p#email").shouldHave(text(email));
     }
 
-    @CsvSource(value = {"First test , test@mail.ru", "Second test , test@gmail.com"})
+    @CsvSource(value = {"Имя , test@mail.ru", "Полное имя , test@gmail.com"})
     @ParameterizedTest(name = "Заполнение полей full name - \"{0}\" и email - \"{1}\" в форме TextBox")
     void fillNameAndEmailInTextBoxFormTest(String name, String email) {
         $("#userName").setValue(name);
@@ -75,9 +75,9 @@ public class ParameterizedTextBoxTests {
 
     static Stream<Arguments> fillNameAndEmailAndCurrentAddressInTextBoxFormTest() {
         return Stream.of(
-                Arguments.of("First test", "test@mail.ru", "New-York, Newcomer st, 12/1"),
-                Arguments.of("Second test", "test@gmail.com", "Paris, Croissant st, 24/2"),
-                Arguments.of("Third test", "test@bigmir.net", "Madrid, Football st, 36/3")
+                Arguments.of("Имя", "test@mail.ru", "New-York, Newcomer st, 12/1"),
+                Arguments.of("Полное имя", "test@gmail.com", "Paris, Croissant st, 24/2"),
+                Arguments.of("Полнейшее имя", "test@bigmir.net", "Madrid, Football st, 36/3")
         );
     }
 }
