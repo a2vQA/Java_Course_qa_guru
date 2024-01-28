@@ -1,0 +1,9 @@
+{
+  "name": "Vladislav",
+  "role": "student",
+  "teachersName": ["Stanislav", "Dmitriy", "Alexey"],
+  "courseInfo": {
+    "programmingLanguage": "Java",
+    "groupNumber": 24
+  }
+}
