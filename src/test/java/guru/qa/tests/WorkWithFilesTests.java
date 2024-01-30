@@ -30,6 +30,7 @@ public class WorkWithFilesTests {
     private static final String pdfFile = "src/test/resources/fileExamples/pdfExample.pdf";
     private static final String xlsxFile = "src/test/resources/fileExamples/xlsxExample.xlsx";
     private static final String jsonFile = "fileExamples/student.json";
+    private static final String zipFile = "src/test/resources/fileExamples/compressed.zip";
 
     @BeforeAll
     static void createZipArchive() throws Exception {
@@ -38,13 +39,13 @@ public class WorkWithFilesTests {
         srcFiles.add(pdfFile);
         srcFiles.add(xlsxFile);
 
-        fileUtils.zipFiles(srcFiles);
+        fileUtils.zipFiles(srcFiles, zipFile);
     }
 
     @Test
     @DisplayName("Чтение и проверка csv файла из архива")
     void checkCsvFileInZip() throws Exception {
-        CSVReader csvReader = new CSVReader(new InputStreamReader(fileUtils.readFilesFromZip(csvFile)));
+        CSVReader csvReader = new CSVReader(new InputStreamReader(fileUtils.readFilesFromZip(csvFile, zipFile)));
         List<String[]> content = csvReader.readAll();
         assertArrayEquals(new String[]{"пример", "csv"}, content.get(0));
         assertArrayEquals(new String[]{"csv", "example"}, content.get(1));
@@ -54,14 +55,14 @@ public class WorkWithFilesTests {
     @Test
     @DisplayName("Чтение и проверка pdf файла из архива")
     void checkPdfFileInZip() throws Exception {
-        PDF pdf = new PDF(fileUtils.readFilesFromZip(pdfFile));
+        PDF pdf = new PDF(fileUtils.readFilesFromZip(pdfFile, zipFile));
         assertTrue(pdf.text.contains("PDF example"));
     }
 
     @Test
     @DisplayName("Чтение и проверка xlsx файла из архива")
     void checkXlsxFileInZip() throws Exception {
-        XLS xls = new XLS(fileUtils.readFilesFromZip(xlsxFile));
+        XLS xls = new XLS(fileUtils.readFilesFromZip(xlsxFile, zipFile));
         assertEquals("пример", xls.excel
                 .getSheet("Лист1")
                 .getRow(0)

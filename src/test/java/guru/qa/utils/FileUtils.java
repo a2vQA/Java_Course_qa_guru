@@ -12,9 +12,8 @@ import java.util.zip.ZipOutputStream;
 
 public class FileUtils {
 
-    public void zipFiles(List<String> fileNames) throws Exception {
-        String fileOutputPath = "src/test/resources/fileExamples/compressed.zip";
-        try (FileOutputStream fos = new FileOutputStream(fileOutputPath);
+    public void zipFiles(List<String> fileNames, String zipOutputPath) throws Exception {
+        try (FileOutputStream fos = new FileOutputStream(zipOutputPath);
              ZipOutputStream zipOut = new ZipOutputStream(fos)) {
             for (String fileName : fileNames) {
                 File fileToZip = new File(fileName);
@@ -32,8 +31,7 @@ public class FileUtils {
         }
     }
 
-    public InputStream readFilesFromZip(String fileName) throws Exception {
-        String zipFilePath = "src/test/resources/fileExamples/compressed.zip";
+    public InputStream readFilesFromZip(String fileName, String zipFilePath) throws Exception {
         ZipFile zipFile = new ZipFile(zipFilePath);
         ZipEntry entry = zipFile.getEntry(fileName.substring(fileName.lastIndexOf("/") + 1));
         if (entry != null) {
