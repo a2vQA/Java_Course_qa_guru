@@ -48,7 +48,7 @@ public class WikiSelenideTests {
         open("https://github.com/selenide/selenide");
         $("#wiki-tab")
                 .click();
-        $("#wiki-pages-box [type='button']")
+        $("#wiki-pages-box .js-wiki-more-pages-link")
                 .click();
 
         $("#wiki-pages-box")
