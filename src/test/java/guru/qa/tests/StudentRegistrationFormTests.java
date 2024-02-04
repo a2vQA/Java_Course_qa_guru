@@ -2,14 +2,24 @@ package guru.qa.tests;
 
 
 import guru.qa.pages.RegistrationPage;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Story;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Feature("Demoqa tests")
+@Story("Automation-practice-form")
+@Tag("demoqa")
+@Owner("vvartemenko")
 public class StudentRegistrationFormTests extends BaseTest {
 
     private final RegistrationPage registrationPage = new RegistrationPage();
     TestData testData = new TestData();
 
     @Test
+    @DisplayName("Регистрация студента с полными данными")
     public void studentRegistrationFormTest() {
         registrationPage
                 .openPageAndDeleteFooter()
@@ -39,6 +49,7 @@ public class StudentRegistrationFormTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Регистрация студента с минимальными данными")
     void minimumFieldsStudentRegistrationFormTest() {
         registrationPage.openPageAndDeleteFooter()
                 .setFirstName(testData.firstName)
@@ -52,6 +63,7 @@ public class StudentRegistrationFormTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Регистрация студента с пустыми данными")
     void emptyStudentRegistrationFormTest() {
         registrationPage
                 .openPageAndDeleteFooter()
