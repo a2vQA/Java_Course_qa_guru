@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 public class RegistrationPage {
@@ -45,6 +46,11 @@ public class RegistrationPage {
     @Step("Открыть страницу automation-practice-form и удалить футер")
     public RegistrationPage openPageAndDeleteFooter(){
         open("/automation-practice-form");
+
+        if ($(".fc-dialog-container").isDisplayed()) {
+            $x("//p[@class='fc-button-label' and text()[contains(.,'Consent')]]").click();
+        }
+
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         Selenide.executeJavaScript("$('#fixedban').remove()");
         Selenide.executeJavaScript("$('footer').remove()");
