@@ -22,7 +22,7 @@ public class StudentRegistrationFormTests extends BaseTest {
     @DisplayName("Регистрация студента с полными данными")
     public void studentRegistrationFormTest() {
         registrationPage
-                .openPageAndDeleteFooter()
+                .openAutomationPracticeFormAndDeleteFooter()
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
                 .setUserEmail(testData.email)
@@ -51,7 +51,7 @@ public class StudentRegistrationFormTests extends BaseTest {
     @Test
     @DisplayName("Регистрация студента с минимальными данными")
     void minimumFieldsStudentRegistrationFormTest() {
-        registrationPage.openPageAndDeleteFooter()
+        registrationPage.openAutomationPracticeFormAndDeleteFooter()
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
                 .setGender(testData.gender)
@@ -66,7 +66,7 @@ public class StudentRegistrationFormTests extends BaseTest {
     @DisplayName("Регистрация студента с пустыми данными")
     void emptyStudentRegistrationFormTest() {
         registrationPage
-                .openPageAndDeleteFooter()
+                .openAutomationPracticeFormAndDeleteFooter()
                 .checkValidationForUserForm();
     }
 }

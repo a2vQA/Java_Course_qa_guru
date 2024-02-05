@@ -1,6 +1,6 @@
 package guru.qa.pages;
 
-import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -9,16 +9,15 @@ import guru.qa.pages.components.RegistrationResultPopup;
 import io.qameta.allure.Step;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 public class RegistrationPage {
@@ -46,10 +45,13 @@ public class RegistrationPage {
         hobbiesList = $$("#hobbiesWrapper .col-md-9 > div > label");
 
     @Step("Открыть страницу automation-practice-form и удалить футер")
-    public RegistrationPage openPageAndDeleteFooter(){
+    public RegistrationPage openAutomationPracticeFormAndDeleteFooter(){
         open("/automation-practice-form");
 
-        Selenide.sleep(5000);
+        if (Objects.equals(Configuration.remote, "https://user1:1234@selenoid.autotests.cloud/wd/hub"))
+        {
+            $(".fc-button-label").shouldHave(text("Consent")).click();
+        }
 
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
 
