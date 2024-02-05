@@ -49,8 +49,8 @@ public class RegistrationPage {
     public RegistrationPage openPageAndDeleteFooter(){
         open("/automation-practice-form");
 
-        if ($(".fc-dialog-container").isDisplayed()) {
-            $x("//p[@class='fc-button-label' and text()[contains(.,'Consent')]]").shouldBe(visible).click();
+        if ($x("//p[@class='fc-button-label' and text()[contains(.,'Consent')]]").isDisplayed()) {
+            $x("//p[@class='fc-button-label' and text()[contains(.,'Consent')]]").click();
         }
 
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
