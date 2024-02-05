@@ -49,6 +49,7 @@ public class RegistrationPage {
     public RegistrationPage openPageAndDeleteFooter(){
         open("/automation-practice-form");
 
+        Selenide.sleep(5000);
         if ($(".fc-dialog-container").shouldBe(visible).isDisplayed()) {
             Selenide.executeJavaScript("$('.fc-consent-root').remove()");
         }
