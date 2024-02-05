@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -47,7 +48,7 @@ public class RegistrationPage {
     public RegistrationPage openPageAndDeleteFooter(){
         open("/automation-practice-form");
 
-        if ($(".fc-dialog-container").isDisplayed()) {
+        if ($(".fc-dialog-container").is(visible)) {
             $x("//p[@class='fc-button-label' and text()[contains(.,'Consent')]]").click();
         }
 
