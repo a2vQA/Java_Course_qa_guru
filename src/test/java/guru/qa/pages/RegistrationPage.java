@@ -1,5 +1,6 @@
 package guru.qa.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -48,8 +49,8 @@ public class RegistrationPage {
     public RegistrationPage openPageAndDeleteFooter(){
         open("/automation-practice-form");
 
-        if ($(".fc-dialog-container").is(visible)) {
-            $x("//p[@class='fc-button-label' and text()[contains(.,'Consent')]]").click();
+        if ($(".fc-dialog-container").isDisplayed()) {
+            $x("//p[@class='fc-button-label' and text()[contains(.,'Consent')]]").shouldBe(visible).click();
         }
 
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
