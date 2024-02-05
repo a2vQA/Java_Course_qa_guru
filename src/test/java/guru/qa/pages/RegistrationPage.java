@@ -49,11 +49,14 @@ public class RegistrationPage {
     public RegistrationPage openPageAndDeleteFooter(){
         open("/automation-practice-form");
 
+        if ($(".fc-dialog-container").shouldBe(visible).isDisplayed()) {
+            Selenide.executeJavaScript("$('.fc-consent-root').remove()");
+        }
+
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        
+
         Selenide.executeJavaScript("$('#fixedban').remove()");
         Selenide.executeJavaScript("$('footer').remove()");
-        Selenide.executeJavaScript("$('.fc-consent-root').remove()");
 
         return this;
     }
