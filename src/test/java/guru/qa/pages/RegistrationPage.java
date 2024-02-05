@@ -50,14 +50,12 @@ public class RegistrationPage {
         open("/automation-practice-form");
 
         Selenide.sleep(5000);
-        if ($(".fc-dialog-container").shouldBe(visible).isDisplayed()) {
-            Selenide.executeJavaScript("$('.fc-consent-root').remove()");
-        }
 
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
 
         Selenide.executeJavaScript("$('#fixedban').remove()");
         Selenide.executeJavaScript("$('footer').remove()");
+        Selenide.executeJavaScript("$('.fc-consent-root').remove()");
 
         return this;
     }
