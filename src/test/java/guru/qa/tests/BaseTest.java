@@ -16,7 +16,8 @@ public class BaseTest {
     static void browserSettings() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.browserVersion = "117";
+        Configuration.browser = "chrome";
+        Configuration.browserVersion = "100";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         SelenideLogger.addListener("allure", new AllureSelenide());
 

@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.actions;
 import static com.codeborne.selenide.Selenide.open;
 
-public class DragAndDropTests {
+public class DragAndDropTests extends BaseTest {
 
     @Test
     void dragAndDropTest() {
