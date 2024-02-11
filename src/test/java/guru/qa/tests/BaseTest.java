@@ -3,8 +3,10 @@ package guru.qa.tests;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import guru.qa.config.DriverConfig;
 import guru.qa.helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -15,11 +17,18 @@ public class BaseTest {
 
     @BeforeAll
     static void browserSettings() {
+        DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
+        System.setProperty("browser", System.getProperty("browser", driverConfig.browserName()));
+        System.setProperty("browserVersion", System.getProperty("browserVersion", driverConfig.browserVersion()));
+        System.setProperty("browserSize", System.getProperty("browserSize", driverConfig.browserSize()));
+        System.setProperty("browserRemoteUrl", System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl()));
+
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.browser = "chrome";
-        Configuration.browserVersion = "100";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.browser = System.getProperty("browser");
+        Configuration.browserVersion = System.getProperty("browserVersion");
+        Configuration.browserSize = System.getProperty("browserSize");
+        Configuration.remote = System.getProperty("browserRemoteUrl");
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
