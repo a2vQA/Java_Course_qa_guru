@@ -17,11 +17,11 @@ allure {
     }
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17) // Укажите нужную версию Java
-    }
-}
+//java {
+//    toolchain {
+//        languageVersion = JavaLanguageVersion.of(17) // Укажите нужную версию Java
+//    }
+//}
 
 compileJava {
     options.encoding = 'UTF-8'
