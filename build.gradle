@@ -39,7 +39,7 @@ repositories {
 
 dependencies {
     testImplementation (
-            'com.codeborne:selenide:7.0.4',
+            'com.codeborne:selenide:6.19.1',
             'org.junit.jupiter:junit-jupiter:5.10.1',
             'org.apache.commons:commons-text:1.10.0',
             'com.github.javafaker:javafaker:1.0.2',
