@@ -18,17 +18,17 @@ public class BaseTest {
     @BeforeAll
     static void browserSettings() {
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
-        System.setProperty("browser", System.getProperty("browser", driverConfig.browserName()));
-        System.setProperty("browserVersion", System.getProperty("browserVersion", driverConfig.browserVersion()));
-        System.setProperty("browserSize", System.getProperty("browserSize", driverConfig.browserSize()));
-        System.setProperty("browserRemoteUrl", System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl()));
+        String browser = System.setProperty("browser", System.getProperty("browser", driverConfig.browserName()));
+        String browserVersion = System.setProperty("browserVersion", System.getProperty("browserVersion", driverConfig.browserVersion()));
+        String browserSize = System.setProperty("browserSize", System.getProperty("browserSize", driverConfig.browserSize()));
+        String browserRemoteUrl = System.setProperty("browserRemoteUrl", System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl()));
 
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.browser = System.getProperty("browser");
-        Configuration.browserVersion = System.getProperty("browserVersion");
-        Configuration.browserSize = System.getProperty("browserSize");
-        Configuration.remote = System.getProperty("browserRemoteUrl");
+        Configuration.browser = browser;
+        Configuration.browserVersion = browserVersion;
+        Configuration.browserSize = browserSize;
+        Configuration.remote = browserRemoteUrl;
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
