@@ -28,7 +28,7 @@ public class BaseTest {
         Configuration.browser = browser;
         Configuration.browserVersion = browserVersion;
         Configuration.browserSize = browserSize;
-//        Configuration.remote = browserRemoteUrl;
+        Configuration.remote = browserRemoteUrl;
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
