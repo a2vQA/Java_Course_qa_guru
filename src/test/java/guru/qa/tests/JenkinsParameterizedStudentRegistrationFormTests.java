@@ -1,8 +1,6 @@
 package guru.qa.tests;
 
 
-import com.codeborne.selenide.Configuration;
-import guru.qa.config.DriverConfig;
 import guru.qa.config.ProjectConfig;
 import guru.qa.pages.RegistrationPage;
 import io.qameta.allure.Feature;
@@ -24,9 +22,6 @@ public class JenkinsParameterizedStudentRegistrationFormTests extends BaseTest {
 
     @BeforeEach
     void setTestData() {
-        DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
-        String browserRemoteUrl = System.setProperty("browserRemoteUrl", System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl()));
-        Configuration.remote = browserRemoteUrl;
         System.setProperty("env", System.getProperty("env", "test"));
         System.getProperty("env");
         projectConfig = ConfigFactory.create(ProjectConfig.class);
@@ -36,7 +31,6 @@ public class JenkinsParameterizedStudentRegistrationFormTests extends BaseTest {
     @Tag("propertyTest")
     @DisplayName("Параметризованные данные для регистрация студента с минимальными данными")
     void JenkinsParameterizedMinimumFieldsStudentRegistrationFormTest() {
-        System.out.println(Configuration.remote);
         registrationPage.openAutomationPracticeFormAndDeleteFooter()
                 .setFirstName(projectConfig.studentFirstName())
                 .setLastName(projectConfig.studentLastName())
