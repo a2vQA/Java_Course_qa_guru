@@ -11,32 +11,28 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class WikiSelenideTests {
 
-    private final String junitFirstCode = """
-        @ExtendWith({SoftAssertsExtension.class})
-        class Tests {
-          @Test
-          void test() {
-            Configuration.assertionMode = SOFT;
-            open("page.html");
+    private final String junitFirstCode = "@ExtendWith({SoftAssertsExtension.class})\n" +
+            "class Tests {\n" +
+            "  @Test\n" +
+            "  void test() {\n" +
+            "    Configuration.assertionMode = SOFT;\n" +
+            "    open(\"page.html\");\n" +
+            "    $(\"#first\").should(visible).click();\n" +
+            "    $(\"#second\").should(visible).click();\n" +
+            "  }\n" +
+            "}";
 
-            $("#first").should(visible).click();
-            $("#second").should(visible).click();
-          }
-        }""";
-    private final String junitSecondCode = """
-        class Tests {
-          @RegisterExtension
-          static SoftAssertsExtension softAsserts = new SoftAssertsExtension();
-
-          @Test
-          void test() {
-            Configuration.assertionMode = SOFT;
-            open("page.html");
-
-            $("#first").should(visible).click();
-            $("#second").should(visible).click();
-          }
-        }""";
+    private final String junitSecondCode = "class Tests {\n" +
+            "  @RegisterExtension\n" +
+            "  static SoftAssertsExtension softAsserts = new SoftAssertsExtension();\n" +
+            "  @Test\n" +
+            "  void test() {\n" +
+            "    Configuration.assertionMode = SOFT;\n" +
+            "    open(\"page.html\");\n" +
+            "    $(\"#first\").should(visible).click();\n" +
+            "    $(\"#second\").should(visible).click();\n" +
+            "  }\n" +
+            "}";
 
     @BeforeEach
     void browserSettings() {
