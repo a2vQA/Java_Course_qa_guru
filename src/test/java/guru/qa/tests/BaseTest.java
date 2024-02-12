@@ -21,14 +21,14 @@ public class BaseTest {
         System.setProperty("browser", System.getProperty("browser", driverConfig.browserName()));
         System.setProperty("browserVersion", System.getProperty("browserVersion", driverConfig.browserVersion()));
         System.setProperty("browserSize", System.getProperty("browserSize", driverConfig.browserSize()));
-        System.setProperty("browserRemoteUrl", System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl()));
+//        System.setProperty("browserRemoteUrl", System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl()));
 
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         Configuration.browser = System.getProperty("browser");
         Configuration.browserVersion = System.getProperty("browserVersion");
         Configuration.browserSize = System.getProperty("browserSize");
-        Configuration.remote = System.getProperty("browserRemoteUrl");
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
