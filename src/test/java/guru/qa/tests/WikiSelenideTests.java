@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class WikiSelenideTests {
 
-    private String junitFirstCode = """
+    private final String junitFirstCode = """
         @ExtendWith({SoftAssertsExtension.class})
         class Tests {
           @Test
@@ -23,7 +23,7 @@ public class WikiSelenideTests {
             $("#second").should(visible).click();
           }
         }""";
-    private String junitSecondCode = """
+    private final String junitSecondCode = """
         class Tests {
           @RegisterExtension
           static SoftAssertsExtension softAsserts = new SoftAssertsExtension();
