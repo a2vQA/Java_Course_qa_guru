@@ -17,12 +17,6 @@ allure {
     }
 }
 
-//java {
-//    toolchain {
-//        languageVersion = JavaLanguageVersion.of(17) // Укажите нужную версию Java
-//    }
-//}
-
 compileJava {
     options.encoding = 'UTF-8'
 }
@@ -38,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation (
+    testImplementation(
             'com.codeborne:selenide:6.19.1',
             'org.junit.jupiter:junit-jupiter:5.10.1',
             'org.apache.commons:commons-text:1.10.0',

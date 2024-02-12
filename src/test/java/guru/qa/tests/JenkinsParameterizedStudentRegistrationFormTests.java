@@ -23,7 +23,6 @@ public class JenkinsParameterizedStudentRegistrationFormTests extends BaseTest {
     @BeforeEach
     void setTestData() {
         System.setProperty("env", System.getProperty("env", "test"));
-        System.getProperty("env");
         projectConfig = ConfigFactory.create(ProjectConfig.class);
     }
 

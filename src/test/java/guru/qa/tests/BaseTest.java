@@ -12,23 +12,20 @@ import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class BaseTest {
 
     @BeforeAll
     static void browserSettings() {
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
-        String browser = System.setProperty("browser", System.getProperty("browser", driverConfig.browserName()));
-        String browserVersion = System.setProperty("browserVersion", System.getProperty("browserVersion", driverConfig.browserVersion()));
-        String browserSize = System.setProperty("browserSize", System.getProperty("browserSize", driverConfig.browserSize()));
-        String browserRemoteUrl = System.setProperty("browserRemoteUrl", System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl()));
 
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.browser = browser;
-        Configuration.browserVersion = browserVersion;
-        Configuration.browserSize = browserSize;
-        Configuration.remote = browserRemoteUrl;
+        Configuration.browser = System.getProperty("browser", driverConfig.browserName());
+        Configuration.browserVersion = System.getProperty("browserVersion", driverConfig.browserVersion());
+        Configuration.browserSize = System.getProperty("browserSize", driverConfig.browserSize());
+        Configuration.remote = System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl());
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
@@ -45,7 +42,9 @@ public class BaseTest {
     void addAttachments() {
         Attach.screenshotAs("Last Screenshot");
         Attach.pageSource();
-        Attach.browserConsoleLogs();
+        if (!Objects.equals(Configuration.browser, "firefox")) {
+            Attach.browserConsoleLogs();
+        }
         Attach.addVideo();
         Selenide.closeWebDriver();
     }
