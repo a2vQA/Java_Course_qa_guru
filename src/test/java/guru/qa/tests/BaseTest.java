@@ -22,10 +22,10 @@ public class BaseTest {
 
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.browser = System.getProperty("browser", driverConfig.browserName());
-        Configuration.browserVersion = System.getProperty("browserVersion", driverConfig.browserVersion());
-        Configuration.browserSize = System.getProperty("browserSize", driverConfig.browserSize());
-        Configuration.remote = System.getProperty("browserRemoteUrl", driverConfig.browserRemoteUrl());
+        Configuration.browser = driverConfig.browserName();
+        Configuration.browserVersion = driverConfig.browserVersion();
+        Configuration.browserSize = driverConfig.browserSize();
+        Configuration.remote = driverConfig.browserRemoteUrl();
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
