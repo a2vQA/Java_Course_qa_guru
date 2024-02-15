@@ -17,12 +17,6 @@ allure {
     }
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17) // Укажите нужную версию Java
-    }
-}
-
 compileJava {
     options.encoding = 'UTF-8'
 }
@@ -38,8 +32,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation (
-            'com.codeborne:selenide:7.0.4',
+    testImplementation(
+            'com.codeborne:selenide:6.19.1',
             'org.junit.jupiter:junit-jupiter:5.10.1',
             'org.apache.commons:commons-text:1.10.0',
             'com.github.javafaker:javafaker:1.0.2',
@@ -48,12 +42,14 @@ dependencies {
             'com.opencsv:opencsv:5.9',
             'com.fasterxml.jackson.core:jackson-core:2.13.1',
             'com.fasterxml.jackson.core:jackson-databind:2.16.1',
-            'io.qameta.allure:allure-selenide:2.25.0'
+            'io.qameta.allure:allure-selenide:2.25.0',
+            'org.aeonbits.owner:owner:1.0.12'
     )
 }
 
 tasks.withType(Test) {
     useJUnitPlatform()
+    systemProperties(System.getProperties())
 
     testLogging {
         lifecycle {
@@ -66,5 +62,12 @@ tasks.withType(Test) {
 task demoqa_test(type: Test) {
     useJUnitPlatform {
         includeTags("demoqa")
+    }
+}
+
+task properties_test(type: Test) {
+    useJUnitPlatform {
+        systemProperties(System.getProperties())
+        includeTags("propertyTest")
     }
 }
