@@ -1,0 +1,17 @@
+{
+  "base": {
+    "logo": "",
+    "project": "qa.guru.testsFromHW15",
+    "environment": "test",
+    "comment": "test",
+    "reportLink": "https://jenkins.autotests.cloud/view/C24/job/C24-v_artyomenko-HW15-propertiesFromJenkins/20/",
+    "language": "ru",
+    "allureFolder": "build/allure-report/",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "6763478149:AAF17dfHmivHFys_R4MUhF1EYU_PrRcxIU4",
+    "chat": "647574608",
+    "replyTo": ""
+  }
+}

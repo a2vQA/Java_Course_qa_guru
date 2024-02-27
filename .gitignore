@@ -54,3 +54,5 @@ bin/
 .idea/codeStyles/codeStyleConfig.xml
 .idea/codeStyles/codeStyleConfig.xml
 *.xml
+notifications/draft.txt
+notifications/allure-notifications-4.6.1.jar
