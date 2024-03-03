@@ -2,11 +2,11 @@ package guru.qa.config;
 
 import org.aeonbits.owner.Config;
 
-@Config.LoadPolicy(Config.LoadType.MERGE)
 @Config.Sources({
-        "classpath:config/driver.properties"
+        "classpath:config/${driver}.properties"
 })
 public interface DriverConfig extends Config {
+
     @Key("browser.name")
     @DefaultValue("chrome")
     String browserName();
@@ -18,6 +18,10 @@ public interface DriverConfig extends Config {
     @Key("browser.size")
     @DefaultValue("1920x1080")
     String browserSize();
+
+    @Key("is.remote")
+    @DefaultValue("false")
+    Boolean isRemote();
 
     @Key("browser.remote.url")
     @DefaultValue("https://user1:1234@selenoid.autotests.cloud/wd/hub")
