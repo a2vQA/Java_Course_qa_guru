@@ -45,7 +45,8 @@ dependencies {
             'io.qameta.allure:allure-selenide:2.25.0',
             'org.aeonbits.owner:owner:1.0.12',
             'io.rest-assured:rest-assured:5.4.0',
-            'org.slf4j:slf4j-simple:2.0.7'
+            'org.slf4j:slf4j-simple:2.0.7',
+            'io.rest-assured:json-schema-validator:5.4.0'
     )
 }
 
@@ -58,6 +59,13 @@ tasks.withType(Test) {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
+    }
+}
+
+task withTags(type: Test) {
+    String tags = System.getProperty("tags", "demoqa")
+    useJUnitPlatform {
+        includeTags tags.split(',')
     }
 }
 
