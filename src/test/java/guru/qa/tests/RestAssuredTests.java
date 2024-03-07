@@ -8,6 +8,8 @@ import io.restassured.config.RestAssuredConfig;
 import io.restassured.config.SSLConfig;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -26,12 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("apiTests")
 public class RestAssuredTests {
 
+    @BeforeEach
+    public void disableSSL() {
+        RestAssured.config = RestAssuredConfig.newConfig().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
+    }
+
     @Test
     @DisplayName("Проверка наличия пользователя \"Lindsay Ferguson\" в списке пользователей")
     public void checkForUsernameNLastnameInList() {
-        // Отключение проверки сертификата
-        RestAssured.config = RestAssuredConfig.newConfig().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
-
         Response response = given()
                 .log().uri()
                 .log().method()
@@ -53,9 +57,6 @@ public class RestAssuredTests {
     @Test
     @DisplayName("Проверка наличия цвета \"chili pepper\" и его данных в списке цветов")
     public void checkForSpecifiedColorInList() {
-        // Отключение проверки сертификата
-        RestAssured.config = RestAssuredConfig.newConfig().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
-
         Response response = given()
                 .log().uri()
                 .log().method()
@@ -78,9 +79,6 @@ public class RestAssuredTests {
     @Test
     @DisplayName("Создание пользователя")
     public void createUser() {
-        // Отключение проверки сертификата
-        RestAssured.config = RestAssuredConfig.newConfig().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
-
         String body = "{ \"name\": \"qa_guru\", \"job\": \"student\" }";
         Response response = given()
                 .log().uri()
@@ -108,9 +106,6 @@ public class RestAssuredTests {
     @Test
     @DisplayName("Изменение пользователя")
     public void changeUserInfo() {
-        // Отключение проверки сертификата
-        RestAssured.config = RestAssuredConfig.newConfig().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
-
         String body = "{ \"name\": \"qa_guru\", \"job\": \"student\" }";
         Response createUserResponse = given()
                 .log().uri()
@@ -152,9 +147,6 @@ public class RestAssuredTests {
     @Test
     @DisplayName("Проверка авторизации без пароля")
     public void loginWithOutPassword() {
-        // Отключение проверки сертификата
-        RestAssured.config = RestAssuredConfig.newConfig().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
-
         String body = "{ \"email\": \"guru@qa.test\" }";
         Response response = given()
                 .log().uri()
