@@ -4,7 +4,7 @@ import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReader;
-import guru.qa.model.Student;
+import guru.qa.model.StudentModel;
 import guru.qa.utils.FileUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -91,7 +91,7 @@ public class WorkWithFilesTests {
         try (InputStream is = cl.getResourceAsStream(jsonFile);
              Reader reader = new InputStreamReader(is)) {
             ObjectMapper objectMapper = new ObjectMapper();
-            Student student = objectMapper.readValue(reader, Student.class);
+            StudentModel student = objectMapper.readValue(reader, StudentModel.class);
 
             assertEquals("Vladislav", student.getName());
             assertEquals("student", student.getRole());
