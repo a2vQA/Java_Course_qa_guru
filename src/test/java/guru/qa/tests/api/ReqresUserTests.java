@@ -8,13 +8,16 @@ import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.config.SSLConfig;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static guru.qa.api.spec.ReqresApiSpec.changeUserInfoSpec;
-import static guru.qa.api.spec.ReqresApiSpec.createUserSpec;
+import static guru.qa.api.spec.ReqresApiSpec.changeUserInfoRequestSpec;
+import static guru.qa.api.spec.ReqresApiSpec.changeUserInfoResponseSpec;
+import static guru.qa.api.spec.ReqresApiSpec.createUserRequestSpec;
+import static guru.qa.api.spec.ReqresApiSpec.createUserResponseSpec;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -32,6 +35,13 @@ public class ReqresUserTests {
     @BeforeEach
     public void disableSSL() {
         RestAssured.config = RestAssuredConfig.newConfig().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
+
+    }
+
+    @BeforeAll
+    public static void apiSetUp() {
+        RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath = "/api";
     }
 
     @Test
@@ -40,12 +50,12 @@ public class ReqresUserTests {
         userData.setName("qa_guru");
         userData.setJob("student");
 
-        Response response = step("Send user create request", () -> given(createUserSpec)
+        Response response = step("Send user create request", () -> given(createUserRequestSpec)
                 .body(userData)
                 .when()
                 .post("/users")
                 .then()
-                .statusCode(201)
+                .spec(createUserResponseSpec)
                 .body(matchesJsonSchemaInClasspath("contracts/post/api__users.json"))
                 .extract().response());
 
@@ -60,12 +70,12 @@ public class ReqresUserTests {
         userData.setName("qa_guru_changed");
         userData.setJob("job_changed");
 
-        Response response = step("Send user change request", () -> given(changeUserInfoSpec)
+        Response response = step("Send user change request", () -> given(changeUserInfoRequestSpec)
                 .body(userData)
                 .when()
                 .patch("users/2")
                 .then()
-                .statusCode(200)
+                .spec(changeUserInfoResponseSpec)
                 .extract().response());
 
         step("Check response for correct changed data", () -> assertAll("Проверка измененных данных пользователя",
