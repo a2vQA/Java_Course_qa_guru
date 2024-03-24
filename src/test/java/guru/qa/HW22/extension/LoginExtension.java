@@ -29,7 +29,7 @@ public class LoginExtension implements BeforeEachCallback {
 
         open("/favicon.png");
 
-        Response response = step("Send user create request", () -> given(loginUserSpec)
+        Response response = step("Отправить запрос авторизации", () -> given(loginUserSpec)
                 .body(userData)
                 .when()
                 .post("/Login")
@@ -37,8 +37,10 @@ public class LoginExtension implements BeforeEachCallback {
                 .statusCode(200)
                 .extract().response());
 
-        getWebDriver().manage().addCookie(new Cookie("userID", response.path("userId")));
-        getWebDriver().manage().addCookie(new Cookie("token", response.path("token")));
-        getWebDriver().manage().addCookie(new Cookie("expires", response.path("expires")));
+        step("Подставить cookie пользователя в браузер", () -> {
+            getWebDriver().manage().addCookie(new Cookie("userID", response.path("userId")));
+            getWebDriver().manage().addCookie(new Cookie("token", response.path("token")));
+            getWebDriver().manage().addCookie(new Cookie("expires", response.path("expires")));
+        });
     }
 }
