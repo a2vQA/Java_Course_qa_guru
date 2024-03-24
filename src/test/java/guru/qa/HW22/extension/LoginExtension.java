@@ -1,6 +1,7 @@
 package guru.qa.HW22.extension;
 
 import guru.qa.HW22.api.model.UserModel;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.config.SSLConfig;
@@ -21,6 +22,7 @@ public class LoginExtension implements BeforeEachCallback {
     private final String username = "a2v", password = "Test123$";
 
     @Override
+    @Step("Замена cookie пользователя в браузере")
     public void beforeEach(ExtensionContext context) {
 
         RestAssured.config = RestAssuredConfig.newConfig().sslConfig(SSLConfig.sslConfig().relaxedHTTPSValidation());
