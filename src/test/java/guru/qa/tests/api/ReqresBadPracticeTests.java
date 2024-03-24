@@ -1,4 +1,4 @@
-package guru.qa.tests;
+package guru.qa.tests.api;
 
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Story("reqres.in tests")
 @Owner("vvartemenko")
 @Tag("apiTests")
-public class RestAssuredTests {
+public class ReqresBadPracticeTests {
 
     @BeforeEach
     public void disableSSL() {
