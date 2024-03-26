@@ -7,10 +7,7 @@ import org.aeonbits.owner.Config;
         "system:properties",
         "classpath:config/api.properties"
 })
-public interface ApiConfig extends Config {
-    @Key("reqres.baseUrl")
-    String reqresBaseUrl();
-
-    @Key("reqres.basePath")
-    String reqresBasePath();
+public interface DemoqaApiConfig extends Config {
+    @Key("demoqa.baseUrl")
+    String demoqaBaseUrl();
 }

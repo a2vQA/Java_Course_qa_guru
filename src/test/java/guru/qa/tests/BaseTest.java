@@ -19,7 +19,6 @@ public class BaseTest {
 
     @BeforeAll
     static void browserSettings() {
-        System.setProperty("driver", System.getProperty("driver", "local"));
         DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
 
         Configuration.baseUrl = "https://demoqa.com";
