@@ -2,6 +2,7 @@ package guru.qa.config;
 
 import org.aeonbits.owner.Config;
 
+@Config.LoadPolicy(Config.LoadType.FIRST)
 @Config.Sources({
         "classpath:config/${driver}.properties",
         "classpath:config/local.properties"

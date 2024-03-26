@@ -11,7 +11,6 @@ import static com.codeborne.selenide.Selenide.open;
 public class ProfilePage {
     private final SelenideElement userNameAboveTable = $("#userName-value").as("Имя пользователя над таблицей"),
             noDataTable = $(".rt-noData").as("Плашка \"No rows found\" в таблице");
-    private final String username = "a2v";
 
     @Step("Открыть страницу profile с куками пользователя")
     public ProfilePage openProfilePageWithCookies() {
@@ -20,8 +19,8 @@ public class ProfilePage {
         return this;
     }
 
-    @Step("Открыть страницу profile с куками пользователя")
-    public ProfilePage checkForUserNameAfterAuth() {
+    @Step("Проверить имя пользователя после авторизации")
+    public ProfilePage checkForUserNameAfterAuth(String username) {
         userNameAboveTable.shouldHave(text(username));
 
         return this;

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 @Owner("vvartemenko")
 public class CheckBookListIsEmptyTests extends BaseTest {
     private final ProfilePage profilePage = new ProfilePage();
+    private final String username = "a2v";
 
     @Test
     @DisplayName("Проверка пустого списка книг в профиле")
@@ -22,7 +23,7 @@ public class CheckBookListIsEmptyTests extends BaseTest {
     public void checkBookListIsEmptyTest() {
         profilePage
                 .openProfilePageWithCookies()
-                .checkForUserNameAfterAuth()
+                .checkForUserNameAfterAuth(username)
                 .checkForBooksInList();
     }
 }
